@@ -1,0 +1,196 @@
+/* styles.css - Güncellenmiş hali (açıklayıcı kısa cümleler + hafif RGB kenar efekti) */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    color: #e0e0ff;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header (değişiklik yok) */
+header {
+    background: linear-gradient(to bottom, rgba(20, 20, 60, 0.92), rgba(10, 10, 40, 0.97));
+    padding: 140px 0 100px;
+    text-align: center;
+    border-bottom: 1px solid rgba(167, 139, 250, 0.12);
+}
+
+header h1 {
+    font-size: 4.8rem;
+    font-weight: 700;
+    background: linear-gradient(90deg, #a78bfa, #7c3aed, #c084fc);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-bottom: 20px;
+    letter-spacing: -1.5px;
+}
+
+header p {
+    font-size: 1.4rem;
+    color: #c3c8ff;
+    margin-bottom: 50px;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 16px 36px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.35s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+.btn.primary {
+    background: linear-gradient(90deg, #7c3aed, #a78bfa);
+    color: white;
+}
+
+.btn.primary:hover {
+    transform: translateY(-5px) scale(1.04);
+    box-shadow: 0 18px 40px rgba(124, 58, 237, 0.45);
+}
+
+.btn.secondary {
+    background: transparent;
+    border: 2px solid #a78bfa;
+    color: #a78bfa;
+}
+
+.btn.secondary:hover {
+    background: rgba(167, 139, 250, 0.15);
+    transform: translateY(-5px);
+}
+
+/* Özellikler bölümü - AÇIKLAYICI KISA CÜMLELER + Hafif RGB kenar efekti */
+#ozellikler {
+    padding: 120px 0;
+}
+
+#ozellikler h2 {
+    text-align: center;
+    font-size: 3.5rem;
+    margin-bottom: 80px;
+    background: linear-gradient(90deg, #c084fc, #a78bfa, #7c3aed);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 32px;
+}
+
+.card {
+    background: rgba(35, 35, 75, 0.65);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(167, 139, 250, 0.2);
+    border-radius: 24px;
+    padding: 45px 35px;
+    text-align: center;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hafif RGB kenar efekti (hoverda belirginleşir) */
+.card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 26px;
+    background: linear-gradient(45deg, #ff00aa, #00ffea, #ffaa00, #00aaff);
+    background-size: 400% 400%;
+    opacity: 0.15;
+    z-index: -1;
+    filter: blur(8px);
+    animation: rgbBorder 12s ease infinite;
+}
+
+.card:hover::before {
+    opacity: 0.4;
+    animation-duration: 6s;
+}
+
+@keyframes rgbBorder {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.card:hover {
+    transform: translateY(-14px);
+    border-color: #a78bfa;
+    box-shadow: 0 25px 50px rgba(124, 58, 237, 0.3);
+}
+
+.card i {
+    font-size: 3.8rem;
+    color: #a78bfa;
+    margin-bottom: 28px;
+}
+
+.card h3 {
+    font-size: 1.75rem;
+    margin-bottom: 18px;
+    color: #f0f0ff;
+}
+
+.card p {
+    color: #d0d0ff;
+    font-size: 1.05rem;
+    line-height: 1.5;
+}
+
+/* Footer (değişiklik yok) */
+footer {
+    padding: 80px 0 50px;
+    text-align: center;
+    border-top: 1px solid rgba(167, 139, 250, 0.1);
+    background: rgba(10, 10, 40, 0.7);
+}
+
+footer p {
+    color: #a0a0cc;
+    font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header { padding: 100px 0 80px; }
+    header h1 { font-size: 3.6rem; }
+    header p  { font-size: 1.2rem; }
+    .header-buttons { flex-direction: column; gap: 20px; }
+    #ozellikler h2 { font-size: 2.8rem; }
+    .grid { gap: 24px; }
+    .card { padding: 35px 25px; }
+}
