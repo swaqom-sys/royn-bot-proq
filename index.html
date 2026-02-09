@@ -1,80 +1,258 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROYN BOT - Discord Botu</title>
-    <link rel="stylesheet" href="sitil.css">
-    <link rel="icon" type="image/x-icon" href="logok.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>ROYN BOT | DİSCORD GELİŞMİŞ BOTU2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Fira+Code:wght@300;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --hacker-green: #00ff41;
+            --hacker-blue: #00f3ff;
+            --bg-black: #08080c;
+            --card-dark: rgba(15, 15, 25, 0.8);
+            --glow: 0 0 15px rgba(0, 255, 65, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Share Tech Mono', monospace; }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--hacker-green);
+            background-image: radial-gradient(circle at 50% 50%, #11111d 0%, #08080c 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* SCANLINE & OVERLAY */
+        body::after {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none; z-index: 1000;
+        }
+
+        nav {
+            padding: 20px 8%;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        /* GÖRSELDEKİ TERMİNAL YAZISI SABİTLENDİ */
+        .header-status { font-size: 0.8rem; color: var(--hacker-blue); font-family: 'Fira Code', monospace; }
+
+        .container { padding: 60px 8%; text-align: center; flex: 1; }
+        
+        .main-title {
+            font-size: 3rem; text-transform: uppercase; margin-bottom: 50px;
+            letter-spacing: 5px; text-shadow: var(--glow);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: var(--card-dark);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 40px 30px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            display: flex; flex-direction: column; align-items: center;
+        }
+
+        .feature-card:hover {
+            border-color: var(--hacker-green);
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.1);
+        }
+
+        .icon-box {
+            font-size: 2.5rem; margin-bottom: 20px;
+            color: var(--hacker-blue);
+            filter: drop-shadow(0 0 5px var(--hacker-blue));
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem; margin-bottom: 15px; color: #fff;
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        .feature-card p {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem; color: #889;
+            line-height: 1.6; min-height: 60px;
+        }
+
+        .card-code {
+            margin-top: 20px; font-size: 0.7rem; color: #445;
+            text-transform: uppercase; border-top: 1px solid #223;
+            padding-top: 10px; width: 100%;
+        }
+
+        .inject-btn {
+            margin-top: 50px; padding: 18px 50px;
+            background: transparent; color: var(--hacker-green);
+            border: 1px solid var(--hacker-green);
+            font-size: 1.2rem; cursor: pointer;
+            transition: 0.3s; position: relative;
+            text-decoration: none; display: inline-block;
+            margin-bottom: 40px;
+            z-index: 5;
+        }
+
+        .inject-btn:hover {
+            background: var(--hacker-green); color: black;
+            box-shadow: 0 0 50px var(--hacker-green);
+        }
+
+        /* --- KÖŞE BUTONLARI --- */
+        .corner-link {
+            position: fixed;
+            bottom: 25px;
+            z-index: 1001;
+        }
+
+        .link-right { right: 25px; }
+        .link-left { left: 25px; }
+
+        .discord-btn {
+            background: rgba(88, 101, 242, 0.1);
+            color: #5865F2;
+            border: 1px solid #5865F2;
+            padding: 12px 18px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+            font-weight: bold;
+        }
+
+        .discord-btn:hover {
+            background: #5865F2;
+            color: white;
+            box-shadow: 0 0 20px rgba(88, 101, 242, 0.4);
+            transform: scale(1.05);
+        }
+
+        footer {
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid rgba(0, 255, 65, 0.1);
+            background: rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .dev-tag { font-size: 1rem; letter-spacing: 3px; color: #fff; opacity: 0.8; }
+        .dev-name { color: var(--hacker-blue); font-weight: bold; }
+        .blink { animation: blink-anim 1s infinite; color: var(--hacker-blue); }
+        @keyframes blink-anim { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <h1>ROYN BOT</h1>
-            <p>Discord sunucularınızı güçlendiren eğlenceli ve güvenli bot</p>
-            <div class="header-buttons">
-                <a href="https://discord.com/api/oauth2/authorize?client_id=1469356927015325698&permissions=8&scope=bot%20applications.commands" 
-                   class="btn primary" target="_blank" rel="noopener noreferrer">
-                    Botu Sunucuna Ekle
-                </a>
-                <a href="https://discord.gg/UF27VWYKz4" 
-                   class="btn secondary" target="_blank" rel="noopener noreferrer">
-                    Destek Sunucusu
-                </a>
+    <nav>
+        <div class="logo">ROYN BOT</div>
+        <div class="header-status">
+            <span class="blink">●</span> BOT AKTİFLİK YÜZDESİ: 100% | <i class="fas fa-lock"></i> BOT AKTİF
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="main-title">ROYN BOT Ne Sunar?</h1>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon-box"><i class="fas fa-shield-alt"></i></div>
+                <h3>Güvenlik</h3>
+                <p>Raid koruması, anti-spam, link engelleme protokolleri aktif.</p>
+                <div class="card-code">DURUM: AKTİF</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-box"><i class="fas fa-gamepad"></i></div>
+                <h3>Eğlence</h3>
+                <p>Yazı-tura, aşk ölçer, espri, bilmece ve hayvan fotoğrafları.</p>
+                <div class="card-code">DURUM: AKTİF</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-box"><i class="fas fa-user-shield"></i></div>
+                <h3>Yönetim</h3>
+                <p>Kick, kanal kilitleme, mesaj silme ve sistem duyuruları.</p>
+                <div class="card-code">DURUM: AKTİF</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-box"><i class="fas fa-trophy"></i></div>
+                <h3>XP & Seviye</h3>
+                <p>Mesaj başına seviye atlama ve global sıralama sistemi.</p>
+                <div class="card-code">DURUM: AKTİF</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-box"><i class="fas fa-calculator"></i></div>
+                <h3>Hesaplama</h3>
+                <p>4 işlem destekli yüksek hızlı hesap makinesi motoru.</p>
+                <div class="card-code">DURUM: AKTİF</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon-box"><i class="fas fa-cloud-showers-heavy"></i></div>
+                <h3>Hava Durumu</h3>
+                <p>Dünyadaki herhangi bir şehrin anlık hava durumu verileri.</p>
+                <div class="card-code">DURUM: AKTİF</div>
             </div>
         </div>
-    </header>
 
-    <main>
-        <section id="ozellikler">
-            <div class="container">
-                <h2>ROYN BOT Ne Sunar?</h2>
-                <div class="grid">
-                    <div class="card">
-                        <i class="fas fa-shield-halved"></i>
-                        <h3>Güvenlik</h3>
-                        <p>Raid koruması, anti-spam, link engelleme</p>
-                    </div>
-                    <div class="card">
-                        <i class="fas fa-gamepad"></i>
-                        <h3>Eğlence</h3>
-                        <p>Yazı-tura, aşk ölçer, espri, bilmece, hayvan fotoğrafları</p>
-                    </div>
-                    <div class="card">
-                        <i class="fas fa-user-shield"></i>
-                        <h3>Yönetim</h3>
-                        <p>Kick, kanal kilitle, mesaj sil, duyuru</p>
-                    </div>
-                    <div class="card">
-                        <i class="fas fa-trophy"></i>
-                        <h3>XP & Seviye</h3>
-                        <p>Mesaj başına seviye atlama + sıralama</p>
-                    </div>
-                    <div class="card">
-                        <i class="fas fa-calculator"></i>
-                        <h3>Hesaplama</h3>
-                        <p>4 işlem destekli hızlı hesap makinesi</p>
-                    </div>
-                    <div class="card">
-                        <i class="fas fa-cloud-sun-rain"></i>
-                        <h3>Hava Durumu</h3>
-                        <p>Herhangi bir şehrin anlık durumu</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+        <a href="https://discord.com/oauth2/authorize?client_id=1469356927015325698&permissions=8&integration_type=0&scope=bot" target="_blank" class="inject-btn">BOTU SUNUCUYA DAVET ET (V2.0)</a>
+    </div>
+
+    <div class="corner-link link-left">
+        <a href="https://discord.gg/N2JerscS" target="_blank" class="discord-btn">
+            <i class="fas fa-headset"></i> DESTEK SUNUCUSU
+        </a>
+    </div>
+
+    <div class="corner-link link-right">
+        <a href="https://discord.com/users/1348335156095881233" target="_blank" class="discord-btn">
+            <i class="fab fa-discord"></i> KURUCU PROFİLİ
+        </a>
+    </div>
 
     <footer>
-        <div class="container">
-            <p>© 2026 SYNOX DEV • Tüm hakları saklıdır.</p>
+        <div class="dev-tag">
+            DEVELOPER : <span class="dev-name">@SYNOXDEV</span>
+        </div>
+        <div style="font-size: 0.6rem; color: #444; margin-top: 10px;">
+            // SİSTEM SYNOXDEV TARAFINDAN OLUŞTURULMUŞTUR //
         </div>
     </footer>
 
+    <script>
+        // Kartlara etkileşim eklendi
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                console.log("[CORE]: Module Access -> " + card.querySelector('h3').innerText);
+            });
+        });
+    </script>
 </body>
 </html>
-
